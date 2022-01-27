@@ -24,7 +24,7 @@
     <h4 id=workerText></h4>
     <button id=tractor>Buy some tractors-price: 25 potatoes</button>
     <h4 id=tractorText></h4>
-    <button id=drum>Potato drums for sale only: 150 potatoes</button>
+    <button id=drum>Wheelbarrows for sale only: 150 potatoes</button>
     <h4 id=drumText></h4>
 
 
@@ -72,7 +72,7 @@
                 finalWorkerPrice = workerPrice.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
-                $workers.text("you have " + workerCount + " loyal workers")
+                $workers.text("you have " + workerCount + " loyal workers. they are making " + (workerCount/2) + " potatoes per second")
                 $workerPrice.html("Common workers-price: " + finalWorkerPrice + " potatoes")
                 workerRegulator = finalWorkerPrice;
                 $error.hide();
@@ -115,8 +115,8 @@
                 finalDrumPrice = drumPrice.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
-                $drumText.text("you have " + drumCount + " round drums")
-                $drum.html("Potato drums for sale only: " + finalDrumPrice + " potatoes")
+                $drumText.text("you have " + drumCount + " rickety wheelbarrows")
+                $drum.html("Wheelbarrows for sale, only: " + finalDrumPrice + " potatoes")
                 drumRegulator = finalDrumPrice;
                 $error.hide();
                 console.log(finalPotatoes);
