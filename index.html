@@ -45,7 +45,7 @@
         var workerCount = 0;
         var workerPrice = 1;
         var workerRegulator = 1;
-        var tractorCount = 0;
+        var tractorCount = 24;
         var tractorPrice = 25;
         var tractorRegulator = 25;
         var drumCount = 0;
@@ -115,7 +115,7 @@
                 finalDrumPrice = drumPrice.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
-                $drumText.text("you have " + tractorCount + " rusty tractors")
+                $drumText.text("you have " + drumCount + " round drums")
                 $drum.html("Potato drums for sale only: " + finalDrumPrice + " potatoes")
                 drumRegulator = finalDrumPrice;
                 $error.hide();
