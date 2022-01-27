@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Potato Presser</title>
+    <style>
+        #error {
+            color: red
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <h1 id=output></h1>
+    <h3 id="stopWatch">you have been harvesting potatoes for 0 seconds</h3>
+    <img id=potato src="https://freepngdownload.com/image/thumb/potato-png-free-download-12.png" width="400"
+        alt="potato">
+    <h3 id=error>You dont have enough potatoes</h3>
+    <h3>Buy upgrades to increase your potato farming power</h3>
+    <button id=worker>Common workers-price: 1 potato</button>
+    <h4 id=workerText></h4>
+    <button id=tractor>Buy some tractors-price: 25 potatoes</button>
+    <h4 id=tractorText></h4>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <script>
+        var $potatoes = $('#output');
+        var $workers = $('#workerText');
+        var $error = $('#error');
+        var $workerPrice = $('#worker');
+        var $tractor = $('#tractor');
+        var $tractorText = $('#tractorText');
+        var potatoCounter = 0;
+        var workerCount = 24;
+        var workerPrice = 1;
+        var workerRegulator = 1;
+        var tractorCount = 0;
+        var tractorPrice = 25;
+        var tractorRegulator = 25;
+        var time = 0;
+        $error.hide();
+        $tractor.hide();
+        $potatoes.text("press the potato to begin harvesting")
+        $("#potato").on("click", function (event) {
+            potatoCounter++;
+            finalPotatoes = potatoCounter.toFixed(0);
+            $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
+            $error.hide();
+            console.log(finalPotatoes);
+        });
+        $("#worker").on("click", function (event) {
+            if (potatoCounter > workerRegulator) {
+                finalWorkerPrice = workerPrice.toFixed(0);
+                potatoCounter = potatoCounter -= finalWorkerPrice;
+                workerPrice = workerPrice += ((workerCount * 4) / workerPrice);
+                workerCount++;
+                finalWorkerPrice = workerPrice.toFixed(0);
+                finalPotatoes = potatoCounter.toFixed(0);
+                $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
+                $workers.text("you have " + workerCount + " loyal workers")
+                $workerPrice.html("Common workers-price: " + finalWorkerPrice + " potatoes")
+                workerRegulator = finalWorkerPrice;
+                $error.hide();
+                console.log(finalPotatoes);
+
+            }
+            else {
+                $error.show();
+
+            }
+
+        });
+        $("#tractor").on("click", function (event) {
+            if (potatoCounter > tractorRegulator) {
+                finalTractorPrice = tractorPrice.toFixed(0);
+                potatoCounter = potatoCounter -= finalTractorPrice;
+                tractorPrice = tractorPrice += ((tractorCount * 10) / (tractorPrice/20));
+                tractorCount++;
+                finalTractorPrice = tractorPrice.toFixed(0);
+                finalPotatoes = potatoCounter.toFixed(0);
+                $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
+                $tractorText.text("you have " + tractorCount + " rusty tractors")
+                $tractor.html("Buy some tractors-price: " + finalTractorPrice + " potatoes")
+                tractorRegulator = finalTractorPrice;
+                $error.hide();
+                console.log(finalPotatoes);
+
+            }
+            else {
+                $error.show();
+
+            }
+        });
+
+
+
+
+        var i = 1;
+        var timer = function (e) {
+            setInterval(function () {
+                i++;
+                var time = (i / 60);
+                potatoCounter = potatoCounter += (workerCount / 60);
+                potatoCounter = potatoCounter += (tractorCount / 20)
+                finalTime = time.toFixed(0);
+                finalPotatoes = potatoCounter.toFixed(0);
+                $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
+                $("#stopWatch").html("you have been harvesting potatoes for " + finalTime + " seconds");
+                if (workerCount > 25) {
+                    $tractor.show();
+console.log(tractorCount);
+                }
+
+            
+    
+        }, (1000 / 60));
+        }
+         timer();
+    </script>
+
+</body>
+
+</html>
