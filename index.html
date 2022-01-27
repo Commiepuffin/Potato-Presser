@@ -89,7 +89,7 @@
             if (potatoCounter > tractorRegulator) {
                 finalTractorPrice = tractorPrice.toFixed(0);
                 potatoCounter = potatoCounter -= finalTractorPrice;
-                tractorPrice = tractorPrice += ((tractorCount * 10) / (tractorPrice/20));
+                tractorPrice = tractorPrice += ((tractorCount * 10) / (tractorPrice / 20));
                 tractorCount++;
                 finalTractorPrice = tractorPrice.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
@@ -110,7 +110,7 @@
             if (potatoCounter > drumRegulator) {
                 finalDrumPrice = drumPrice.toFixed(0);
                 potatoCounter = potatoCounter -= finalDrumPrice;
-                drumPrice = drumPrice += ((drumCount * 50) / (drumPrice/100));
+                drumPrice = drumPrice += ((drumCount * 50) / (drumPrice / 100));
                 drumCount++;
                 finalDrumPrice = drumPrice.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
@@ -136,25 +136,26 @@
                 i++;
                 var time = (i / 60);
                 potatoCounter = potatoCounter += (workerCount / 120);
-                potatoCounter = potatoCounter += (tractorCount / 45)
+                potatoCounter = potatoCounter += (tractorCount / 45);
+                potatoCounter = potatoCounter += (drumCount / 15);
                 finalTime = time.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
                 $("#stopWatch").html("you have been harvesting potatoes for " + finalTime + " seconds");
                 if (workerCount > 25) {
                     $tractor.show();
-console.log(tractorCount);
+                    console.log(tractorCount);
                 }
                 if (tractorCount > 25) {
                     $drum.show();
-console.log(tractorCount);
+                    console.log(tractorCount);
                 }
 
-            
-    
-        }, (1000 / 60));
+
+
+            }, (1000 / 60));
         }
-         timer();
+        timer();
     </script>
 
 </body>
