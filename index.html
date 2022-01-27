@@ -131,8 +131,8 @@
                 wheelbarrowPps = wheelbarrowPps.toFixed(1)
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
                 $wheelbarrowText.text("you have " + wheelbarrowCount + " rickety wheelbarrows. they are producing " + wheelbarrowPps + " potatoes per second")
-                $wheelbarrow.html("Wheelbarrows for sale, only: " + finalWheelbarrowPrice + " potatoes")
-                wheelbarrowRegulator = finalWheelbarrowPrice;
+                $wheelbarrow.html("Wheelbarrows for sale, only: " + finalwheelbarrowPrice + " potatoes")
+                wheelbarrowRegulator = finalwheelbarrowPrice;
                 $error.hide();
                 console.log(finalPotatoes);
 
@@ -155,14 +155,13 @@
                 potatoCounter = potatoCounter += (wheelbarrowCount / 15);
                 finalTime = time.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
-                var totalPps = (workerPps + tractorPps + wheelbarrowPps)
+              //  var totalPps = (workerPps + tractorPps + wheelbarrowPps)
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
-                $pps.text("you are producing " + totalPps + " potatoes per second")
+                //$pps.text("you are producing " + totalPps + " potatoes per second")
                 $("#stopWatch").html("you have been harvesting potatoes for " + finalTime + " seconds");
                 if (workerCount > 25) {
                     $tractor.show();
-                    console.log(totalPps);
-                    console.log(absolutePps)
+                    
                 }
                 if (tractorCount > 25) {
                     $wheelbarrow.show();
