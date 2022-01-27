@@ -29,8 +29,8 @@
     <h4 id=workerText></h4>
     <button id=tractor>Buy some tractors-price: 25 potatoes</button>
     <h4 id=tractorText></h4>
-    <button id=drum>Wheelbarrows for sale only: 150 potatoes</button>
-    <h4 id=drumText></h4>
+    <button id=wheelbarrow>Wheelbarrows for sale only: 150 potatoes</button>
+    <h4 id=wheelbarrowText></h4>
 
 
 
@@ -44,8 +44,8 @@
         var $workerPrice = $('#worker');
         var $tractor = $('#tractor');
         var $tractorText = $('#tractorText');
-        var $drum = $('#drum');
-        var $drumText = $('#drumText');
+        var $wheelbarrow = $('#wheelbarrow');
+        var $wheelbarrowText = $('#wheelbarrowText');
         var $pps = $('#potatoesPerSecond');
         var potatoCounter = 0;
         var workerCount = 0;
@@ -54,16 +54,16 @@
         var tractorCount = 0;
         var tractorPrice = 25;
         var tractorRegulator = 25;
-        var drumCount = 0;
-        var drumPrice = 150;
-        var drumRegulator = 150;
+        var wheelbarrowCount = 0;
+        var wheelbarrowPrice = 150;
+        var wheelbarrowRegulator = 150;
         var workerPps = 0;
         var tractorPps = 0;
-        var drumPps = 0;
+        var wheelbarrowPps = 0;
         var time = 0;
         $error.hide();
         $tractor.hide();
-        $drum.hide();
+        $wheelbarrow.hide();
         $potatoes.text("press the potato to begin harvesting")
         $("#potato").on("click", function (event) {
             potatoCounter++;
@@ -119,20 +119,20 @@
 
             }
         });
-        $("#drum").on("click", function (event) {
-            if (potatoCounter > drumRegulator) {
-                finalDrumPrice = drumPrice.toFixed(0);
-                potatoCounter = potatoCounter -= finalDrumPrice;
-                drumPrice = drumPrice += ((drumCount * 50) / (drumPrice / 100));
-                drumCount++;
-                finalDrumPrice = drumPrice.toFixed(0);
+        $("#wheelbarrow").on("click", function (event) {
+            if (potatoCounter > wheelbarrowRegulator) {
+                finalwheelbarrowPrice = wheelbarrowPrice.toFixed(0);
+                potatoCounter = potatoCounter -= finalwheelbarrowPrice;
+                wheelbarrowPrice = wheelbarrowPrice += ((wheelbarrowCount * 50) / (wheelbarrowPrice / 100));
+                wheelbarrowCount++;
+                finalwheelbarrowPrice = wheelbarrowPrice.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
-                drumPps = (drumCount) * (4 / 3);
-                drumPps = drumPps.toFixed(1)
+                wheelbarrowPps = (wheelbarrowCount) * (4 / 3);
+                wheelbarrowPps = wheelbarrowPps.toFixed(1)
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
-                $drumText.text("you have " + drumCount + " rickety wheelbarrows. they are producing " + drumPps + " potatoes per second")
-                $drum.html("Wheelbarrows for sale, only: " + finalDrumPrice + " potatoes")
-                drumRegulator = finalDrumPrice;
+                $wheelbarrowText.text("you have " + wheelbarrowCount + " rickety wheelbarrows. they are producing " + wheelbarrowPps + " potatoes per second")
+                $wheelbarrow.html("Wheelbarrows for sale, only: " + finalWheelbarrowPrice + " potatoes")
+                wheelbarrowRegulator = finalWheelbarrowPrice;
                 $error.hide();
                 console.log(finalPotatoes);
 
@@ -152,23 +152,23 @@
                 var time = (i / 60);
                 potatoCounter = potatoCounter += (workerCount / 120);
                 potatoCounter = potatoCounter += (tractorCount / 45);
-                potatoCounter = potatoCounter += (drumCount / 15);
+                potatoCounter = potatoCounter += (wheelbarrowCount / 15);
                 finalTime = time.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
-                var totalPps = (workerPps + tractorPps + drumPps)
+                var totalPps = (workerPps + tractorPps + wheelbarrowPps)
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
                 $pps.text("you are producing " + totalPps + " potatoes per second")
                 $("#stopWatch").html("you have been harvesting potatoes for " + finalTime + " seconds");
                 if (workerCount > 25) {
                     $tractor.show();
-                    console.log(tractorCount);
+                    console.log(totalPps);
+                    console.log(absolutePps)
                 }
                 if (tractorCount > 25) {
-                    $drum.show();
-                    console.log(tractorCount);
+                    $wheelbarrow.show();
+                    
                 }
-                console.log(workerPps)
-                console.log(tractorPps)
+                
 
 
             }, (1000 / 60));
