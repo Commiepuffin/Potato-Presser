@@ -15,6 +15,7 @@
 
 
     <h1 id=output></h1>
+    <h2 id = potatoesPerSecond></h2>
     <h3 id="stopWatch">you have been harvesting potatoes for 0 seconds</h3>
     <img id=potato src="https://freepngdownload.com/image/thumb/potato-png-free-download-12.png" width="400"
         alt="potato">
@@ -41,6 +42,7 @@
         var $tractorText = $('#tractorText');
         var $drum = $('#drum');
         var $drumText = $('#drumText');
+        var $pps = $('#potatoesPerSecond');
         var potatoCounter = 0;
         var workerCount = 0;
         var workerPrice = 1;
@@ -71,8 +73,10 @@
                 workerCount++;
                 finalWorkerPrice = workerPrice.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
+                workerPps = ((workerCount) *(1/2)) 
+                workerPps = workerPps.toFixed(1)
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
-                $workers.text("you have " + workerCount + " loyal workers. they are making " + (workerCount/2) + " potatoes per second")
+                $workers.text("you have " + workerCount + " loyal workers. they are making " + (workerPps) + " potatoes per second")
                 $workerPrice.html("Common workers-price: " + finalWorkerPrice + " potatoes")
                 workerRegulator = finalWorkerPrice;
                 $error.hide();
@@ -93,8 +97,10 @@
                 tractorCount++;
                 finalTractorPrice = tractorPrice.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
+                tractorPps = (tractorCount) * (4/3); 
+                tractorPps = tractorPps.toFixed(1)
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
-                $tractorText.text("you have " + tractorCount + " rusty tractors")
+                $tractorText.text("you have " + tractorCount + " rusty tractors. they are producing " + tractorPps + " potatoes per second")
                 $tractor.html("Buy some tractors-price: " + finalTractorPrice + " potatoes")
                 tractorRegulator = finalTractorPrice;
                 $error.hide();
@@ -114,8 +120,10 @@
                 drumCount++;
                 finalDrumPrice = drumPrice.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
+                drumPps = (drumCount) * (4/3); 
+                drumPps = drumPps.toFixed(1)
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
-                $drumText.text("you have " + drumCount + " rickety wheelbarrows")
+                $drumText.text("you have " + drumCount + " rickety wheelbarrows. they are producing " + drumPps + " potatoes per second")
                 $drum.html("Wheelbarrows for sale, only: " + finalDrumPrice + " potatoes")
                 drumRegulator = finalDrumPrice;
                 $error.hide();
@@ -141,6 +149,7 @@
                 finalTime = time.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
+                $pps.text("you are producing " +(drumPps + workerPps + tractorPps) + " potatoes per second")
                 $("#stopWatch").html("you have been harvesting potatoes for " + finalTime + " seconds");
                 if (workerCount > 25) {
                     $tractor.show();
