@@ -148,8 +148,9 @@
                 potatoCounter = potatoCounter += (drumCount / 15);
                 finalTime = time.toFixed(0);
                 finalPotatoes = potatoCounter.toFixed(0);
+                totalPps = drumPps + workerPps + tractorPps
                 $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
-                $pps.text("you are producing " +(drumPps + workerPps + tractorPps) + " potatoes per second")
+                $pps.text("you are producing " + totalPps + " potatoes per second")
                 $("#stopWatch").html("you have been harvesting potatoes for " + finalTime + " seconds");
                 if (workerCount > 25) {
                     $tractor.show();
