@@ -78,10 +78,9 @@
         }
         
         $("#potato").on("click", function (event) {
-            a++;
             potatoCounter++;
-            potatoCounter.toFixed(0);
-            $("#potatoes").text("you have harvested " + potatoCounter + " potatoes")
+            finalPotatoes = potatoCounter.toFixed(0);
+            $("#potatoes").text("you have harvested " + finalPotatoes + " potatoes")
             $error.hide();
         });
 
