@@ -5,123 +5,106 @@
     <meta charset="utf-8">
     <title>Potato Presser</title>
     <style>
-        #error {
-            color: red;
-            position: absolute;
-            float: right;
-            left: 85%;
-            top: 10px;
-        }
+
     </style>
 </head>
 
 <body>
-
-    <h1 id="output"></h1>
-    <h2 id="potatoesPerSecond"></h2>
-    <h3 id="stopWatch">you have been harvesting potatoes for 0 seconds</h3>
+    <h1 id=potatoes>You have harvested 0 potatoes</h1>
+    <h3 id=stopWatch>Click the potato to begin harvesting.</h3>
     <img id="potato" src="https://freepngdownload.com/image/thumb/potato-png-free-download-12.png" width="400"
         alt="potato">
-    <div id="display"></div>
-    <!--<h3 id="error">You dont have enough potatoes</h3>
-    <h3>Buy upgrades to increase your potato farming power</h3>
-    <button id="worker">Common workers-price: 1 potato</button>
-    <h4 id= "workerText"></h4>
-    <button id="tractor">Buy some tractors-price: 25 potatoes</button>
-    <h4 id="tractorText"></h4>
-    <button id="wheelbarrow">Wheelbarrows for sale only: 150 potatoes</button>
-    <h4 id="wheelbarrowText"></h4>>-->
-
-
-
-
+    <div id="help"> </div>
+    <p id=error> oops you are poor </p>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
     <script>
-        function buyable(name, id, count, price, pps, multiplier, production, flavor) {
+        var $error = $('#error')
+        $error.hide();
+        var potatoCounter = 0;
+        var a = 0;
+        function buyable(name, price, production, flavor) {
+            var counter = 0;
+            this.counter = counter;
             this.name = name;
-            this.id = id;
-            this.count = count;
             this.price = price;
-            //this.finalPrice = finalPrice;
-            //this.regulator = regulator;
-            this.pps = pps;
-            this.multiplier = multiplier;
-            this.production = production;
             this.flavor = flavor;
-            this.functionName = "obj"+name.charAt(0).toUpperCase() + name.slice(1);
-            var buttonText = function () {
-                return (name + "-price: " + price + " potato");
-            }
-            this.processClick = function () {
-                console.log("firing " + this.id);
-                console.log("you have " + potatoCounter + " taters");
-                console.log(this.name + " cost " + this.price);
+            this.functionName = "obj" + name.charAt(0).toUpperCase() + name.slice(1);
+            this.ppsOut = 0;
+            this.onClick = function () {
+                console.log("firing")
                 if (potatoCounter >= price) {
                     potatoCounter -= price;
-                    price += ((count * multiplier) / price);
-                    price.toFixed(0);
-                    count++;
-                    finalPotatoes = potatoCounter.toFixed(0);
-                    pps = (count * production).toFixed(1);
-                    $("#" + id).html = buttonText();
-                    console.log("WE GOT HERE");
-                }
+                    counter++;
+                    (price += (price * price/ (counter *(price/2))))
+                    price.toFixed(0)
+                    
+                    $("#" + name + "Btn").text(buttonText())
+                    $("#" + name + "Flavor").text(flavorText())
+                    ppsOut = pps();
+                    console.log(ppsOut)
+                } else $error.show();
+
             }
-
-
-            this.buttonCode = "<button id=\"" + this.id + "Btn\" onClick = \"" + this.functionName + ".processClick()\">" + buttonText() + "</button><br>";
+            var buttonText = function () {
+                return (price)
+            }
+            this.buttonCode = "<button id=\"" + this.name + "Btn\" onClick = \"" + this.functionName + ".onClick()\">" + buttonText() + "</button><br>";
+            var updater = function () {
+                return (counter);
+            }
+            var pps = function () {
+                return ((counter * production).toFixed(1))
+            }
             var flavorText = function () {
-                return ("you have " + count + " " + flavor);
+                return ("you have " + updater() + " " + flavor + " " + name + "s. producing " + pps() + " potatoes per second")
             }
-            this.flavorCode = "<span id =\"" + this.id + "\">" + flavorText() + "</span><br>";
-        }
+            this.flavorCode = "<span id =\"" + this.name + "Flavor\">" + flavorText() + "</span><br>";
 
-        const objWorker = new buyable('worker', 'worker', 0, 1, 0, 4, .5, 'loyal workers');
-        const objTractor = new buyable('tractor', 'tractor', 0, 25, 0, 10, 4 / 3, 'rusty tractors');
+
+            // this.ppsCode = "<span id =\"" + this.name + "Pps\">" + pps() + "</span><br>";
+
+
+        }
+        const objWorker = new buyable('worker', 1, .1, 'loyal')
+        const objTractor = new buyable('tractor', 25, .5, 'rusty')
 
         var buyables = [objWorker, objTractor]
-        var $potatoes = $('#output');
-        var $error = $('#error');
-        var potatoCounter = 0;
-        var time = 0;
+        console.log(buyables)
 
-        //// SETUP CODE________________________________________________________________________________________________________________________________________________________________________
         for (b in buyables) {
-            $("#display").append(buyables[b].buttonCode);
-            $("#display").append(buyables[b].flavorCode);
-            console.log(buyables[b].flavorCode);
+            $("#help").append(buyables[b].buttonCode)
+            $("#help").append(buyables[b].flavorCode)
         }
-
-        //        $error.hide();
-        $potatoes.text("press the potato to begin harvesting")
-
+        
         $("#potato").on("click", function (event) {
+            a++;
             potatoCounter++;
-            finalPotatoes = potatoCounter.toFixed(0);
-            $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
+            potatoCounter.toFixed(0);
+            $("#potatoes").text("you have harvested " + potatoCounter + " potatoes")
             $error.hide();
-
         });
-
-        var fireButton = function (btn) {
-
-        }
 
 
         var i = 1;
+
         var timer = function (e) {
             setInterval(function () {
                 i++;
                 var time = (i / 60);
                 finalTime = time.toFixed(0);
+                console.log(ppsOut);
+                for (b in buyables) {
+                     potatoCounter += (ppsOut/ 60);
+                  }
                 finalPotatoes = potatoCounter.toFixed(0);
-                $potatoes.text("you have harvested " + finalPotatoes + " potatoes")
-                $("#stopWatch").html("you have been harvesting potatoes for " + finalTime + " seconds");
+                $("#potatoes").text("you have harvested " + finalPotatoes + " potatoes")
+                $("#stopWatch").text("you have been harvesting potatoes for " + finalTime + " seconds");
+                //  console.log(finalTime)
             }, (1000 / 60));
         }
-        timer();
-
+            timer();
+        
     </script>
 
 </body>
