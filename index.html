@@ -61,7 +61,6 @@
                     potatoCounter -= price;
                     counter++;
                     (price += (start * Math.pow(1.2, counter)))
-                    console.log(price.toFixed(0))
                     $("#" + name + "Btn").text(buttonText())
                     $("#" + name + "Flavor").text(flavorText())
                     ppsOut += (Number(pps()));
@@ -98,7 +97,8 @@
         const objWheelbarrow = new buyable('wheelbarrow', 1250, 8, 'rickety', 1250)
         const objTruck = new buyable('truck', 12000, 45, 'loud', 12000)
         const objSilo = new buyable('silo', 150000, 225, 'leaky', 150000)
-        var buyables = [objWorker, objTractor, objWheelbarrow, objTruck, objSilo]
+        const objDrone = new buyable('drone', 1000000, 1000, 'flying', 1000000)
+        var buyables = [objWorker, objTractor, objWheelbarrow, objTruck, objSilo, objDrone]
         console.log(buyables)
 
         for (b in buyables) {
