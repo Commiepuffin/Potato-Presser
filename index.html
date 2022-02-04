@@ -126,7 +126,7 @@
                 $("#potatoes").text("you have harvested " + finalPotatoes + " potatoes")
                 $("#stopWatch").text("you have been harvesting potatoes for " + finalTime + " seconds");
                 for (b in buyables) {
-                    if (potatoCounter === buyables[b].price) {
+                    if (potatoCounter >= buyables[b].price) {
                         $("#" + buyables[b].name + "Btn").attr("disabled", false)
                     }
                 }
