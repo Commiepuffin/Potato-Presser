@@ -5,7 +5,26 @@
     <meta charset="utf-8">
     <title>Potato Presser</title>
     <style>
+        #error {
+            color: red;
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            font-size: 25.3vw;
+            top: 0px;
+        }
 
+        .visible {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 2s linear;
+        }
+
+        .hidden {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 2s, opacity 2s linear;
+        }
     </style>
 </head>
 
@@ -15,41 +34,51 @@
     <img id="potato" src="https://freepngdownload.com/image/thumb/potato-png-free-download-12.png" width="400"
         alt="potato">
     <div id="help"> </div>
-    <p id=error> oops you are poor </p>
+    <h1 class="hidden" id="error">POOR.</h1>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
     <script>
         var $error = $('#error')
-        $error.hide();
         var potatoCounter = 0;
-        var a = 0;
-        function buyable(name, price, production, flavor) {
+        var ppsOut = 0;
+
+        function buyable(name, price, production, flavor, start) {
             var counter = 0;
             this.counter = counter;
             this.name = name;
             this.price = price;
             this.flavor = flavor;
+            this.start = start;
             this.functionName = "obj" + name.charAt(0).toUpperCase() + name.slice(1);
             this.ppsOut = 0;
+            var i = 1;
+
+
             this.onClick = function () {
                 console.log("firing")
                 if (potatoCounter >= price) {
                     potatoCounter -= price;
                     counter++;
-                    (price += (price * price/ (counter *(price/2))))
-                    price.toFixed(0)
-                    
+                    (price += (start * Math.pow(1.2, counter)))
+                    console.log(price.toFixed(0))
                     $("#" + name + "Btn").text(buttonText())
                     $("#" + name + "Flavor").text(flavorText())
                     ppsOut = pps();
                     console.log(ppsOut)
-                } else $error.show();
-
+                } else {
+                    $error.addClass("visible")
+                    $error.removeClass("hidden")
+                    setTimeout(
+                        function () {
+                            $error.removeClass("visible")
+                            $error.addClass("hidden")
+                        }, 2000);
+                }
             }
             var buttonText = function () {
-                return (price)
+                return ("Buy a " + name + " for " + price.toFixed(0) + " potatoes")
             }
-            this.buttonCode = "<button id=\"" + this.name + "Btn\" onClick = \"" + this.functionName + ".onClick()\">" + buttonText() + "</button><br>";
+            this.buttonCode = "<button disabled = true id=\"" + this.name + "Btn\" onClick = \"" + this.functionName + ".onClick()\">" + buttonText() + "</button><br>";
             var updater = function () {
                 return (counter);
             }
@@ -60,28 +89,27 @@
                 return ("you have " + updater() + " " + flavor + " " + name + "s. producing " + pps() + " potatoes per second")
             }
             this.flavorCode = "<span id =\"" + this.name + "Flavor\">" + flavorText() + "</span><br>";
-
-
             // this.ppsCode = "<span id =\"" + this.name + "Pps\">" + pps() + "</span><br>";
 
-
         }
-        const objWorker = new buyable('worker', 1, .1, 'loyal')
-        const objTractor = new buyable('tractor', 25, .5, 'rusty')
-
-        var buyables = [objWorker, objTractor]
+        const objWorker = new buyable('worker', 1, .1, 'loyal', 1)
+        const objTractor = new buyable('tractor', 25, .5, 'rusty', 25)
+        const objWheel = new buyable('wheelbarrow', 300, 1, 'rickety', 300)
+        const objTruck = new buyable('truck', 1200, 2.5, 'loud', 1200)
+        const objSilo = new buyable('silo', 5000, 4, 'leaky', 5000)
+        var buyables = [objWorker, objTractor, objWheel, objTruck, objSilo]
         console.log(buyables)
 
         for (b in buyables) {
             $("#help").append(buyables[b].buttonCode)
             $("#help").append(buyables[b].flavorCode)
+
         }
-        
+
         $("#potato").on("click", function (event) {
             potatoCounter++;
             finalPotatoes = potatoCounter.toFixed(0);
             $("#potatoes").text("you have harvested " + finalPotatoes + " potatoes")
-            $error.hide();
         });
 
 
@@ -93,17 +121,19 @@
                 var time = (i / 60);
                 finalTime = time.toFixed(0);
                 console.log(ppsOut);
-                for (b in buyables) {
-                     potatoCounter += (ppsOut/ 60);
-                  }
+                potatoCounter += (ppsOut / 60);
                 finalPotatoes = potatoCounter.toFixed(0);
                 $("#potatoes").text("you have harvested " + finalPotatoes + " potatoes")
                 $("#stopWatch").text("you have been harvesting potatoes for " + finalTime + " seconds");
-                //  console.log(finalTime)
+                for (b in buyables) {
+                    if (potatoCounter === buyables[b].price) {
+                        $("#" + buyables[b].name + "Btn").attr("disabled", false)
+                    }
+                }
             }, (1000 / 60));
         }
-            timer();
-        
+        timer();
+
     </script>
 
 </body>
