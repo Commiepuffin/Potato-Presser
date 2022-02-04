@@ -38,8 +38,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
     <script>
+        ///david gets an easter egg
         var $error = $('#error')
-        var potatoCounter = 0;
+        var potatoCounter = 1000000;
         var ppsOut = 0;
 
         function buyable(name, price, production, flavor, start) {
@@ -63,7 +64,7 @@
                     console.log(price.toFixed(0))
                     $("#" + name + "Btn").text(buttonText())
                     $("#" + name + "Flavor").text(flavorText())
-                    ppsOut = pps();
+                    ppsOut += (Number(pps()));
                     console.log(ppsOut)
                 } else {
                     $error.addClass("visible")
@@ -92,11 +93,11 @@
             // this.ppsCode = "<span id =\"" + this.name + "Pps\">" + pps() + "</span><br>";
 
         }
-        const objWorker = new buyable('worker', 1, .1, 'loyal', 1)
-        const objTractor = new buyable('tractor', 25, .5, 'rusty', 25)
-        const objWheelbarrow = new buyable('wheelbarrow', 300, 1, 'rickety', 300)
-        const objTruck = new buyable('truck', 1200, 2.5, 'loud', 1200)
-        const objSilo = new buyable('silo', 5000, 4, 'leaky', 5000)
+        const objWorker = new buyable('worker', 10, .1, 'loyal', 10)
+        const objTractor = new buyable('tractor', 100, 1, 'rusty', 100)
+        const objWheelbarrow = new buyable('wheelbarrow', 1250, 8, 'rickety', 1250)
+        const objTruck = new buyable('truck', 12000, 45, 'loud', 12000)
+        const objSilo = new buyable('silo', 150000, 225, 'leaky', 150000)
         var buyables = [objWorker, objTractor, objWheelbarrow, objTruck, objSilo]
         console.log(buyables)
 
